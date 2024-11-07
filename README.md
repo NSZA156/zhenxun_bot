@@ -60,7 +60,7 @@
 
 <img width="350" height="350" src="https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/help.png"/>
 <img width="250" height="500" src="https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/html_help.png"/>
-<img width="180" height="450" src="https://github.com/HibiKier/zhenxun_bot/blob/dev/docs_image/zhenxun_help.png"/>
+<img width="180" height="450" src="https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/zhenxun_help.png"/>
 
 </div>
 
@@ -68,11 +68,11 @@
 
 ### 1. 体验一下？
 
-这是一个免费的，版本为 dev 的 zhenxun，你可以通过 napcat 或拉格朗日等直接连接用于体验与测试  
+这是一个免费的，版本为 dev 的 zhenxun，你可以通过 [napcat](https://github.com/NapNeko/NapCatQQ) 或 [拉格朗日](https://github.com/LagrangeDev/Lagrange.Core) 以及 [matcha](https://github.com/A-kirami/matcha) 等直接连接用于体验与测试  
 （球球了测试君！）
 
 ```
-Url： 43.143.112.57:11451/onebot/v11/ws
+Url： test.zhenxun.org:8080/onebot/v11/ws
 AccessToken: PUBLIC_ZHENXUN_TEST
 
 注：你无法获得超级用户权限
@@ -95,13 +95,14 @@ AccessToken: PUBLIC_ZHENXUN_TEST
 <details>
 <summary> <strong> WebUI </strong>后台示例图 </summary>
 
-![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui1.png)
-![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui2.png)
-![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui3.png)
-![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui4.png)
-![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui5.png)
-![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui6.png)
-![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui7.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui00.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui01.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui02.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui03.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui04.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui05.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui06.png)
+![x](https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/webui07.png)
 
 </details>
 
@@ -315,11 +316,11 @@ python bot.py
 
 </details> -->
 
-## [爱发电](https://afdian.net/@HibiKier)
+## [爱发电](https://afdian.com/a/HibiKier)
 
 <details>
 <summary>爱发电 以及 感谢投喂 </summary>
-<img width="365px" height="450px" src="https://user-images.githubusercontent.com/45528451/175059389-cfeb8174-fa07-4939-80ab-a039087a50f6.png">
+<img width="365px" height="450px" src="https://raw.githubusercontent.com/HibiKier/zhenxun_bot/main/docs_image/afd.jpg">
 
 ### 感谢名单
 
@@ -369,6 +370,7 @@ python bot.py
 [哇](https://afdian.net/u/9b266244f23911eca19052540025c377)  
 [yajiwa](https://github.com/yajiwa)  
 [爆金币](https://afdian.net/u/0d78879ef23711ecb22452540025c377)
+...
 
 </details>
 
