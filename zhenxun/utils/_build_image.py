@@ -1,17 +1,18 @@
-import math
-import uuid
 import base64
-import itertools
 import contextlib
 from io import BytesIO
+import itertools
+import math
 from pathlib import Path
-from typing_extensions import Self
 from typing import Literal, TypeAlias, overload
+from typing_extensions import Self
+import uuid
 
 from nonebot.utils import run_sync
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from PIL.Image import Image as tImage
+from PIL.Image import Resampling, Transpose
 from PIL.ImageFont import FreeTypeFont
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 from zhenxun.configs.path_config import FONT_PATH
 
@@ -62,7 +63,7 @@ class BuildImage:
             else:
                 self.markImg = Image.open(background)
             if width and height:
-                self.markImg = self.markImg.resize((width, height), Image.LANCZOS)
+                self.markImg = self.markImg.resize((width, height), Resampling.LANCZOS)
             else:
                 self.width = self.markImg.width
                 self.height = self.markImg.height
@@ -156,7 +157,8 @@ class BuildImage:
         """
         if not img_list:
             raise ValueError("贴图类别为空...")
-        width, height = img_list[0].size
+        width = max(img.size[0] for img in img_list)
+        height = max(img.size[1] for img in img_list)
         background_width = width * row + space * (row - 1) + padding * 2
         row_count = math.ceil(len(img_list) / row)
         if row_count == 1:
@@ -168,12 +170,22 @@ class BuildImage:
             background_width, background_height, color=color, background=background
         )
         _cur_width, _cur_height = padding, padding
-        for img in img_list:
+        row_num = 0
+        for i in range(len(img_list)):
+            row_num += 1
+            img: Self | tImage = img_list[i]
             await background_image.paste(img, (_cur_width, _cur_height))
             _cur_width += space + img.width
-            if _cur_width + padding >= background_image.width:
+            next_image_width = 0
+            if i != len(img_list) - 1:
+                next_image_width = img_list[i + 1].width
+            if (
+                row_num == row
+                or _cur_width + padding + next_image_width >= background_image.width + 1
+            ):
                 _cur_height += space + img.height
                 _cur_width = padding
+                row_num = 0
         return background_image
 
     @classmethod
@@ -476,7 +488,7 @@ class BuildImage:
         x, y = self.markImg.size
         for i, k in itertools.product(range(n, x - n), range(n, y - n)):
             color = self.markImg.getpixel((i, k))
-            color = color[:-1] + (int(100 * alpha_ratio),)
+            color = color[:-1] + (int(100 * alpha_ratio),)  # type: ignore
             self.markImg.putpixel((i, k), color)
         self.draw = ImageDraw.Draw(self.markImg)
         return self
@@ -499,7 +511,13 @@ class BuildImage:
             bytes: bytes
         """
         buf = BytesIO()
-        self.markImg.save(buf, format="PNG")
+        img_format = self.markImg.format.upper() if self.markImg.format else "PNG"
+
+        if img_format == "GIF":
+            self.markImg.save(buf, format="GIF", save_all=True, loop=0)
+        else:
+            self.markImg.save(buf, format="PNG")
+
         return buf.getvalue()
 
     def convert(self, type_: ModeType) -> Self:
@@ -606,7 +624,7 @@ class BuildImage:
             left, top = ((value + offset) * antialias for value in ellipse_box[:2])
             right, bottom = ((value - offset) * antialias for value in ellipse_box[2:])
             draw.ellipse([left, top, right, bottom], fill=fill)
-        mask = mask.resize(self.markImg.size, Image.LANCZOS)
+        mask = mask.resize(self.markImg.size, Resampling.LANCZOS)
         with contextlib.suppress(ValueError):
             self.markImg.putalpha(mask)
         return self
@@ -668,7 +686,7 @@ class BuildImage:
         return self
 
     @run_sync
-    def transpose(self, angle: Literal[0, 1, 2, 3, 4, 5, 6]) -> Self:
+    def transpose(self, angle: Transpose) -> Self:
         """
         旋转图片(包括边框)
 
@@ -719,3 +737,11 @@ class BuildImage:
             bytes: bytes
         """
         return self.markImg.tobytes()
+
+    def copy(self) -> "BuildImage":
+        """复制
+
+        返回:
+            BuildImage: Self
+        """
+        return BuildImage.open(self.pic2bytes())
